@@ -11,8 +11,10 @@ import * as listView from "./view/listView";
 import {
   renderRecipe,
   clearRecipe,
-  highlightSelectedRecipe
+  highlightSelectedRecipe,
 } from "./view/recipeView";
+
+console.log("program starting....");
 
 /**
  * Web app төлөв
@@ -50,12 +52,12 @@ const controlSearch = async () => {
   }
 };
 
-elements.searchForm.addEventListener("submit", e => {
+elements.searchForm.addEventListener("submit", (e) => {
   e.preventDefault();
   controlSearch();
 });
 
-elements.pageButtons.addEventListener("click", e => {
+elements.pageButtons.addEventListener("click", (e) => {
   const btn = e.target.closest(".btn-inline");
 
   if (btn) {
@@ -98,9 +100,11 @@ const controlRecipe = async () => {
 // window.addEventListener("hashchange", controlRecipe);
 // window.addEventListener("load", controlRecipe);
 
-["hashchange", "load"].forEach(e => window.addEventListener(e, controlRecipe));
+["hashchange", "load"].forEach((e) =>
+  window.addEventListener(e, controlRecipe)
+);
 
-window.addEventListener("load", e => {
+window.addEventListener("load", (e) => {
   // Шинээр лайк моделийг апп дөнгөж ачаалагдахад үүсгэнэ.
   if (!state.likes) state.likes = new Like();
 
@@ -108,7 +112,7 @@ window.addEventListener("load", e => {
   likesView.toggleLikeMenu(state.likes.getNumberOfLikes());
 
   // Лайкууд байвал тэдгээрийг цэсэнд нэмж харуулна.
-  state.likes.likes.forEach(like => likesView.renderLike(like));
+  state.likes.likes.forEach((like) => likesView.renderLike(like));
 });
 
 /**
@@ -123,7 +127,7 @@ const controlList = () => {
   listView.clearItems();
 
   // Уг модел рүү одоо харагдаж байгаа жорны бүх найрлагыг авч хийнэ.
-  state.recipe.ingredients.forEach(n => {
+  state.recipe.ingredients.forEach((n) => {
     // Тухайн найрлагыг модел рүү хийнэ.
     const item = state.list.addItem(n);
 
@@ -170,7 +174,7 @@ const controlLike = () => {
   likesView.toggleLikeMenu(state.likes.getNumberOfLikes());
 };
 
-elements.recipeDiv.addEventListener("click", e => {
+elements.recipeDiv.addEventListener("click", (e) => {
   if (e.target.matches(".recipe__btn, .recipe__btn *")) {
     controlList();
   } else if (e.target.matches(".recipe__love, .recipe__love *")) {
@@ -178,7 +182,7 @@ elements.recipeDiv.addEventListener("click", e => {
   }
 });
 
-elements.shoppingList.addEventListener("click", e => {
+elements.shoppingList.addEventListener("click", (e) => {
   // Клик хийсэн li элементийн data-itemid аттрибутыг шүүж гаргаж авах
   const id = e.target.closest(".shopping__item").dataset.itemid;
 
